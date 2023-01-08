@@ -7,11 +7,11 @@ import ARKit
 class ARViewCoordinator: NSObject, ARSessionDelegate {
      var arVC: ARViewContainer
 
-//     @Binding var overlayText: String
+     @Binding var size: Float
 
-    init(_ control: ARViewContainer) {//, overlayText: Binding<String>) {
+    init(_ control: ARViewContainer, size: Binding<Float>) {
          self.arVC = control
-//         _overlayText = overlayText
+        _size = size
      }
 
      func session(_ session: ARSession, didUpdate frame: ARFrame) {

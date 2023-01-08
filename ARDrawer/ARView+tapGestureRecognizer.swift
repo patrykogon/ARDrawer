@@ -20,6 +20,8 @@ extension ARView {
      }
      
      func rayCastingMethod(point: CGPoint) {
+         guard let coordinator = self.session.delegate as? ARViewCoordinator else { return }
+             
          guard let raycastQuery = self.makeRaycastQuery(
             from: point,
             allowing: .existingPlaneInfinite,
@@ -34,14 +36,15 @@ extension ARView {
              return
          }
          
-         let transformation = Transform(matrix: result.worldTransform)
-         let box = CustomBox(color: .yellow)
-         self.installGestures(.all, for: box)
+         let box = CustomBox(color: .red, size: coordinator.size)
          box.generateCollisionShapes(recursive: true)
-         box.transform = transformation
+         box.transform = Transform(matrix: result.worldTransform)
+
+         self.installGestures(.all, for: box)
          
-         let raycastAnchor = AnchorEntity(raycastResult: result)
-         raycastAnchor.addChild(box)
-         self.scene.addAnchor(raycastAnchor)
+         let anchorEntity = AnchorEntity(plane: .horizontal)
+         anchorEntity.addChild(box)
+         
+         self.scene.anchors.append(anchorEntity)
      }
  }

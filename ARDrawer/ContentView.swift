@@ -5,19 +5,32 @@ import Vision
 import ARKit
 
 
+
 struct ContentView : View {
+    @State var size: Float = 0.05
+    
     var body: some View {
         ZStack {
-            ARViewContainer().edgesIgnoringSafeArea(.all)
+            ARViewContainer(size: $size).edgesIgnoringSafeArea(.all)
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer(minLength: 32)
+                    Slider(value: $size, in: 0.01...0.1, step: 0.01)
+                    Spacer(minLength: 32)
+                }
+                Spacer().frame(height: 16)
+            }
+            
         }
     }
 }
 
 struct ARViewContainer: UIViewRepresentable {
-
+    @Binding var size: Float
     
     func makeCoordinator() -> ARViewCoordinator {
-        ARViewCoordinator(self)
+        ARViewCoordinator(self, size: $size)
     }
     
     func makeUIView(context: Context) -> ARView {
@@ -31,21 +44,10 @@ struct ARViewContainer: UIViewRepresentable {
         arView.setupGestures()
         
         arView.session.delegate = context.coordinator
-#if DEBUG
-       // arView.debugOptions = [.showFeaturePoints, .showAnchorOrigins, .showAnchorGeometry]
-#endif
         return arView
     }
     func updateUIView(_ uiView: ARView, context: Context) { }
 }
-
-#if DEBUG
-struct ContentView_Previews : PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-#endif
 
 extension ARView: ARCoachingOverlayViewDelegate {
     func addCoaching() {
@@ -65,10 +67,10 @@ extension ARView: ARCoachingOverlayViewDelegate {
 }
 
 class CustomBox: Entity, HasModel, HasAnchoring, HasCollision {
-    required init(color: UIColor) {
+    required init(color: UIColor, size: Float = 0.1) {
         super.init()
         self.components[ModelComponent.self] = ModelComponent(
-            mesh: .generateBox(size: 0.1),
+            mesh: .generateBox(size: size),
             materials: [SimpleMaterial(color: color, isMetallic: false)]
         )
     }
