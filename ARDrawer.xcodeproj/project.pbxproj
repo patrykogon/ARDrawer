@@ -15,6 +15,8 @@
 		46E58BCC296B15FD00533012 /* ARDrawerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E58BCB296B15FD00533012 /* ARDrawerTests.swift */; };
 		46E58BD6296B15FD00533012 /* ARDrawerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E58BD5296B15FD00533012 /* ARDrawerUITests.swift */; };
 		46E58BD8296B15FD00533012 /* ARDrawerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E58BD7296B15FD00533012 /* ARDrawerUITestsLaunchTests.swift */; };
+		46E58BE6296B21DC00533012 /* ARView+tapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E58BE5296B21DC00533012 /* ARView+tapGestureRecognizer.swift */; };
+		46E58BE8296B224100533012 /* ARViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E58BE7296B224100533012 /* ARViewCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		46E58BD1296B15FD00533012 /* ARDrawerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARDrawerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46E58BD5296B15FD00533012 /* ARDrawerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDrawerUITests.swift; sourceTree = "<group>"; };
 		46E58BD7296B15FD00533012 /* ARDrawerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDrawerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		46E58BE5296B21DC00533012 /* ARView+tapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARView+tapGestureRecognizer.swift"; sourceTree = "<group>"; };
+		46E58BE7296B224100533012 /* ARViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,8 +100,10 @@
 		46E58BB7296B15FC00533012 /* ARDrawer */ = {
 			isa = PBXGroup;
 			children = (
+				46E58BE7296B224100533012 /* ARViewCoordinator.swift */,
 				46E58BB8296B15FC00533012 /* AppDelegate.swift */,
 				46E58BBA296B15FC00533012 /* ContentView.swift */,
+				46E58BE5296B21DC00533012 /* ARView+tapGestureRecognizer.swift */,
 				46E58BBC296B15FC00533012 /* Experience.rcproject */,
 				46E58BBE296B15FD00533012 /* Assets.xcassets */,
 				46E58BC0296B15FD00533012 /* Preview Content */,
@@ -261,8 +267,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				46E58BBB296B15FC00533012 /* ContentView.swift in Sources */,
+				46E58BE8296B224100533012 /* ARViewCoordinator.swift in Sources */,
 				46E58BB9296B15FC00533012 /* AppDelegate.swift in Sources */,
 				46E58BBD296B15FC00533012 /* Experience.rcproject in Sources */,
+				46E58BE6296B21DC00533012 /* ARView+tapGestureRecognizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
