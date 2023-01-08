@@ -14,7 +14,7 @@ struct ContentView : View {
 }
 
 struct ARViewContainer: UIViewRepresentable {
-//    @Binding var overlayText: String
+
     
     func makeCoordinator() -> ARViewCoordinator {
         ARViewCoordinator(self)
