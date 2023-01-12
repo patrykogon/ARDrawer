@@ -94,6 +94,15 @@ extension ARView {
                  anchorEntity.addChild(entity)
                  self.scene.anchors.append(anchorEntity)
              }
+         case .pawello:
+             if let entity = try? Entity.loadModel(named: "pawello") {
+                 entity.transform = Transform(matrix: result.worldTransform)
+                 let anchorEntity = AnchorEntity(plane: .horizontal)
+                 entity.generateCollisionShapes(recursive: true)
+                 self.installGestures(.all, for: entity)
+                 anchorEntity.addChild(entity)
+                 self.scene.anchors.append(anchorEntity)
+             }
          }
      }
  }

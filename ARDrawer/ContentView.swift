@@ -60,7 +60,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         
         arView.setupGestures()
-        
+//        arView.debugOptions = [.showPhysics, .showAnchorGeometry, .showSceneUnderstanding, .showWorldOrigin]
         arView.session.delegate = context.coordinator
         return arView
     }

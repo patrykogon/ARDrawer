@@ -9,6 +9,7 @@ enum SelectedModel: String, Equatable, CaseIterable {
     case multimeter = "Multimeter"
     case ogon = "Ogon"
     case profesor = "Profesor"
+    case pawello = "pawello"
     
     var localizedName: LocalizedStringKey { LocalizedStringKey(rawValue) }
 }
