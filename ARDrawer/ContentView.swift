@@ -44,7 +44,8 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var selectedModel: SelectedModel
     
     func makeCoordinator() -> ARViewCoordinator {
-        ARViewCoordinator(self, size: $size, color: $color, selectedModel: $selectedModel)
+        let coordinator = ARViewCoordinator(self, size: $size, color: $color, selectedModel: $selectedModel)
+        return coordinator
     }
     
     func makeUIView(context: Context) -> ARView {
@@ -62,6 +63,7 @@ struct ARViewContainer: UIViewRepresentable {
         arView.setupGestures()
 //        arView.debugOptions = [.showPhysics, .showAnchorGeometry, .showSceneUnderstanding, .showWorldOrigin]
         arView.session.delegate = context.coordinator
+        context.coordinator.arView = arView
         return arView
     }
     func updateUIView(_ uiView: ARView, context: Context) { }

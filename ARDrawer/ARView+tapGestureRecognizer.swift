@@ -67,6 +67,18 @@ extension ARView {
              self.installGestures(.all, for: box)
              anchorEntity.addChild(box)
              self.scene.anchors.append(anchorEntity)
+         case .boxWithPhysics:
+             let anchor = AnchorEntity(plane: .horizontal)
+             let plane = ModelEntity(mesh: .generatePlane(width: 2, depth: 2), materials: [OcclusionMaterial()])
+             anchor.addChild(plane)
+             plane.generateCollisionShapes(recursive: false)
+             plane.physicsBody = PhysicsBodyComponent(massProperties: .default, material: .default, mode: .static)
+             let box = ModelEntity(mesh: .generateBox(size: 0.05), materials: [SimpleMaterial(color: .white, isMetallic: true)])
+             box.generateCollisionShapes(recursive: false)
+             box.physicsBody = PhysicsBodyComponent(massProperties: .default, material: .default, mode: .dynamic)
+             box.position = [0,0.025,0]
+             anchor.addChild(box)
+             self.scene.addAnchor(anchor)
          case .multimeter:
              if let entity = try? Entity.loadModel(named: "test") {
                  entity.transform = Transform(matrix: result.worldTransform)
