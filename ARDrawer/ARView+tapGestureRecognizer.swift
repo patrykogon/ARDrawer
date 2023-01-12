@@ -3,6 +3,7 @@ import RealityKit
 import SceneKit
 import Vision
 import ARKit
+import Combine
 
 //enum Constants {
 //    public var boxIdentity: String { "box.identity" }
@@ -39,7 +40,7 @@ extension ARView {
          
          rayCastingMethod(point: touchInView)
      }
-     
+    
      func rayCastingMethod(point: CGPoint) {
          guard let coordinator = self.session.delegate as? ARViewCoordinator else { return }
              
@@ -68,6 +69,24 @@ extension ARView {
              self.scene.anchors.append(anchorEntity)
          case .multimeter:
              if let entity = try? Entity.loadModel(named: "test") {
+                 entity.transform = Transform(matrix: result.worldTransform)
+                 let anchorEntity = AnchorEntity(plane: .horizontal)
+                 entity.generateCollisionShapes(recursive: true)
+                 self.installGestures(.all, for: entity)
+                 anchorEntity.addChild(entity)
+                 self.scene.anchors.append(anchorEntity)
+             }
+         case .ogon:
+             if let entity = try? Entity.loadModel(named: "patryk") {
+                 entity.transform = Transform(matrix: result.worldTransform)
+                 let anchorEntity = AnchorEntity(plane: .horizontal)
+                 entity.generateCollisionShapes(recursive: true)
+                 self.installGestures(.all, for: entity)
+                 anchorEntity.addChild(entity)
+                 self.scene.anchors.append(anchorEntity)
+             }
+         case .profesor:
+             if let entity = try? Entity.loadModel(named: "profesor") {
                  entity.transform = Transform(matrix: result.worldTransform)
                  let anchorEntity = AnchorEntity(plane: .horizontal)
                  entity.generateCollisionShapes(recursive: true)

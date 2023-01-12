@@ -7,6 +7,8 @@ import ARKit
 enum SelectedModel: String, Equatable, CaseIterable {
     case box = "Box"
     case multimeter = "Multimeter"
+    case ogon = "Ogon"
+    case profesor = "Profesor"
     
     var localizedName: LocalizedStringKey { LocalizedStringKey(rawValue) }
 }
