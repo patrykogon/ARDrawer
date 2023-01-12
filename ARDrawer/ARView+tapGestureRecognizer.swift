@@ -57,16 +57,29 @@ extension ARView {
              return
          }
          
-         let box = CustomBox(color: UIColor(coordinator.color), size: coordinator.size)
-         box.generateCollisionShapes(recursive: true)
-         box.transform = Transform(matrix: result.worldTransform)
-
-         self.installGestures(.all, for: box)
+        
          
-         let anchorEntity = AnchorEntity(plane: .horizontal)
-         anchorEntity.name = "box.identity"
-         anchorEntity.addChild(box)
+         switch coordinator.selectedModel {
+         case .box:
+             let anchorEntity = AnchorEntity(plane: .horizontal)
+             let box = CustomBox(color: UIColor(coordinator.color), size: coordinator.size)
+             box.generateCollisionShapes(recursive: true)
+             box.transform = Transform(matrix: result.worldTransform)
+             self.installGestures(.all, for: box)
+             anchorEntity.addChild(box)
+             self.scene.anchors.append(anchorEntity)
+         case .multimeter:
+             if let entity = try? Entity.load(named: "test") {
+                 let anchorEntity = AnchorEntity(plane: .horizontal)
+                 entity.generateCollisionShapes(recursive: true)
+                 if let entityWithCollisions = entity as? HasCollision {
+                     self.installGestures(.all, for: entityWithCollisions)
+                 }
+                 anchorEntity.addChild(entity)
+                 self.scene.anchors.append(anchorEntity)
+             }
+         }
          
-         self.scene.anchors.append(anchorEntity)
+         
      }
  }

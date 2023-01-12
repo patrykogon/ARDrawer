@@ -9,9 +9,14 @@ import ARKit
 struct ContentView : View {
     @State var size: Float = 0.05
     @State var color = Color.red
+    @State var selectedModel: SelectedModel = .box
     var body: some View {
         ZStack {
-            ARViewContainer(size: $size, color: $color).edgesIgnoringSafeArea(.all)
+            ARViewContainer(
+                size: $size,
+                color: $color,
+                selectedModel: $selectedModel
+            ).edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
                 HStack {
@@ -19,6 +24,12 @@ struct ContentView : View {
                     Slider(value: $size, in: 0.01...0.1, step: 0.01)
                     ColorPicker("", selection: $color).frame(width: 32, height: 32)
                     Spacer(minLength: 16)
+                    Picker("This Title Is Localized", selection: $selectedModel) {
+                        ForEach(SelectedModel.allCases, id: \.self) { value in
+                            Text(value.localizedName)
+                                .tag(value)
+                        }
+                    }
                 }
                 Spacer().frame(height: 16)
             }
@@ -30,9 +41,10 @@ struct ContentView : View {
 struct ARViewContainer: UIViewRepresentable {
     @Binding var size: Float
     @Binding var color: Color
+    @Binding var selectedModel: SelectedModel
     
     func makeCoordinator() -> ARViewCoordinator {
-        ARViewCoordinator(self, size: $size, color: $color)
+        ARViewCoordinator(self, size: $size, color: $color, selectedModel: $selectedModel)
     }
     
     func makeUIView(context: Context) -> ARView {
@@ -68,7 +80,7 @@ extension ARView: ARCoachingOverlayViewDelegate {
     }
 }
 
-class CustomBox: Entity, HasModel, HasAnchoring, HasCollision {
+final class CustomBox: Entity, HasModel, HasAnchoring, HasCollision {
     required init(color: UIColor, size: Float = 0.1) {
         super.init()
         self.components[ModelComponent.self] = ModelComponent(
