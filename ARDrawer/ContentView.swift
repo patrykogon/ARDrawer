@@ -8,16 +8,17 @@ import ARKit
 
 struct ContentView : View {
     @State var size: Float = 0.05
-    
+    @State var color = Color.red
     var body: some View {
         ZStack {
-            ARViewContainer(size: $size).edgesIgnoringSafeArea(.all)
+            ARViewContainer(size: $size, color: $color).edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
                 HStack {
                     Spacer(minLength: 32)
                     Slider(value: $size, in: 0.01...0.1, step: 0.01)
-                    Spacer(minLength: 32)
+                    ColorPicker("", selection: $color).frame(width: 32, height: 32)
+                    Spacer(minLength: 16)
                 }
                 Spacer().frame(height: 16)
             }
@@ -28,9 +29,10 @@ struct ContentView : View {
 
 struct ARViewContainer: UIViewRepresentable {
     @Binding var size: Float
+    @Binding var color: Color
     
     func makeCoordinator() -> ARViewCoordinator {
-        ARViewCoordinator(self, size: $size)
+        ARViewCoordinator(self, size: $size, color: $color)
     }
     
     func makeUIView(context: Context) -> ARView {
