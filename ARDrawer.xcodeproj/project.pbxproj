@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		461A899C2970087500F48B88 /* test.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 461A899B2970087500F48B88 /* test.usdz */; };
-		4648249929705F31001E63A9 /* patryk.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4648249829705F31001E63A9 /* patryk.usdz */; };
-		4648249B29706316001E63A9 /* profesor.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4648249A29706316001E63A9 /* profesor.usdz */; };
-		4648249D297067A1001E63A9 /* pawello.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4648249C297067A1001E63A9 /* pawello.usdz */; };
 		46E58BB9296B15FC00533012 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E58BB8296B15FC00533012 /* AppDelegate.swift */; };
 		46E58BBB296B15FC00533012 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E58BBA296B15FC00533012 /* ContentView.swift */; };
 		46E58BBD296B15FC00533012 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 46E58BBC296B15FC00533012 /* Experience.rcproject */; };
@@ -42,9 +39,6 @@
 
 /* Begin PBXFileReference section */
 		461A899B2970087500F48B88 /* test.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = test.usdz; path = ../../../Downloads/test.usdz; sourceTree = "<group>"; };
-		4648249829705F31001E63A9 /* patryk.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = patryk.usdz; sourceTree = "<group>"; };
-		4648249A29706316001E63A9 /* profesor.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = profesor.usdz; sourceTree = "<group>"; };
-		4648249C297067A1001E63A9 /* pawello.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pawello.usdz; sourceTree = "<group>"; };
 		46E58BB5296B15FC00533012 /* ARDrawer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARDrawer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46E58BB8296B15FC00533012 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46E58BBA296B15FC00533012 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -113,9 +107,6 @@
 				46E58BBA296B15FC00533012 /* ContentView.swift */,
 				46E58BE5296B21DC00533012 /* ARView+tapGestureRecognizer.swift */,
 				461A899B2970087500F48B88 /* test.usdz */,
-				4648249A29706316001E63A9 /* profesor.usdz */,
-				4648249C297067A1001E63A9 /* pawello.usdz */,
-				4648249829705F31001E63A9 /* patryk.usdz */,
 				46E58BBC296B15FC00533012 /* Experience.rcproject */,
 				46E58BBE296B15FD00533012 /* Assets.xcassets */,
 				46E58BC0296B15FD00533012 /* Preview Content */,
@@ -252,11 +243,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4648249D297067A1001E63A9 /* pawello.usdz in Resources */,
 				46E58BC2296B15FD00533012 /* Preview Assets.xcassets in Resources */,
 				46E58BBF296B15FD00533012 /* Assets.xcassets in Resources */,
-				4648249929705F31001E63A9 /* patryk.usdz in Resources */,
-				4648249B29706316001E63A9 /* profesor.usdz in Resources */,
 				461A899C2970087500F48B88 /* test.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
