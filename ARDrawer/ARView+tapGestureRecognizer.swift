@@ -68,18 +68,16 @@ extension ARView {
              self.scene.anchors.append(anchorEntity)
          case .multimeter:
              if let entity = try? Entity.loadModel(named: "test") {
+                 entity.transform = Transform(matrix: result.worldTransform)
                  let anchorEntity = AnchorEntity(plane: .horizontal)
                  entity.generateCollisionShapes(recursive: true)
-                 if let entityWithCollisions = entity as? Entity & HasCollision & HasAnchoring {
-                     self.installGestures(.all, for: entityWithCollisions)
-                 }
+                 self.installGestures(.all, for: entity)
                  anchorEntity.addChild(entity)
                  self.scene.anchors.append(anchorEntity)
              }
          }
      }
  }
-
 
 //Entity.loadModelAsync(named: "test").sink(
 //   receiveCompletion: { _ in

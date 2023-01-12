@@ -53,7 +53,11 @@ struct ARViewContainer: UIViewRepresentable {
         
         let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
+        config.environmentTexturing = .automatic
+        config.frameSemantics = [.personSegmentation]
+        config.planeDetection = [.horizontal]
         arView.session.run(config, options: [])
+        
         
         arView.setupGestures()
         
@@ -80,12 +84,12 @@ extension ARView: ARCoachingOverlayViewDelegate {
     }
 }
 
-final class CustomBox: Entity, HasModel, HasAnchoring, HasCollision {
+final class CustomBox: Entity, HasModel, HasAnchoring, HasCollision, HasPhysics {
     required init(color: UIColor, size: Float = 0.1) {
         super.init()
         self.components[ModelComponent.self] = ModelComponent(
             mesh: .generateBox(size: size),
-            materials: [SimpleMaterial(color: color, isMetallic: false)]
+            materials: [SimpleMaterial(color: color, isMetallic: true)]
         )
     }
     
