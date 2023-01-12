@@ -57,8 +57,6 @@ extension ARView {
              return
          }
          
-        
-         
          switch coordinator.selectedModel {
          case .box:
              let anchorEntity = AnchorEntity(plane: .horizontal)
@@ -69,17 +67,31 @@ extension ARView {
              anchorEntity.addChild(box)
              self.scene.anchors.append(anchorEntity)
          case .multimeter:
-             if let entity = try? Entity.load(named: "test") {
+             if let entity = try? Entity.loadModel(named: "test") {
                  let anchorEntity = AnchorEntity(plane: .horizontal)
                  entity.generateCollisionShapes(recursive: true)
-                 if let entityWithCollisions = entity as? HasCollision {
+                 if let entityWithCollisions = entity as? Entity & HasCollision & HasAnchoring {
                      self.installGestures(.all, for: entityWithCollisions)
                  }
                  anchorEntity.addChild(entity)
                  self.scene.anchors.append(anchorEntity)
              }
          }
-         
-         
      }
  }
+
+
+//Entity.loadModelAsync(named: "test").sink(
+//   receiveCompletion: { _ in
+//
+//   },
+//   receiveValue: { entity in
+//       let anchorEntity = AnchorEntity(plane: .horizontal)
+//       entity.generateCollisionShapes(recursive: true)
+////                    if let entityWithCollisions = entity as? Entity & HasCollision {
+////                        self.installGestures(.all, for: entityWithCollisions)
+////                    }
+//       anchorEntity.addChild(entity)
+//       self.scene.anchors.append(anchorEntity)
+//   }
+//).store(in: &cancellables)
