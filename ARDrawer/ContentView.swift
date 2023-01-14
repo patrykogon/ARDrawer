@@ -10,12 +10,14 @@ struct ContentView : View {
     @State var size: Float = 0.05
     @State var color = Color.red
     @State var selectedModel: SelectedModel = .box
+    @State var isLoading = false
     var body: some View {
         ZStack {
             ARViewContainer(
                 size: $size,
                 color: $color,
-                selectedModel: $selectedModel
+                selectedModel: $selectedModel,
+                isLoading: $isLoading
             ).edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
@@ -33,7 +35,15 @@ struct ContentView : View {
                 }
                 Spacer().frame(height: 16)
             }
-            
+            if isLoading {
+                ProgressView {
+                    Text("Loading")
+                }
+                .progressViewStyle(CircularProgressViewStyle())
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea(.all)
+                .background(Color.black.opacity(0.6))
+            }
         }
     }
 }
@@ -42,9 +52,10 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var size: Float
     @Binding var color: Color
     @Binding var selectedModel: SelectedModel
+    @Binding var isLoading: Bool
     
     func makeCoordinator() -> ARViewCoordinator {
-        let coordinator = ARViewCoordinator(self, size: $size, color: $color, selectedModel: $selectedModel)
+        let coordinator = ARViewCoordinator(self, size: $size, isLoading: $isLoading, color: $color, selectedModel: $selectedModel)
         return coordinator
     }
     
@@ -61,7 +72,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         
         arView.setupGestures()
-//        arView.debugOptions = [.showPhysics, .showAnchorGeometry, .showSceneUnderstanding, .showWorldOrigin]
+        //        arView.debugOptions = [.showPhysics, .showAnchorGeometry, .showSceneUnderstanding, .showWorldOrigin]
         arView.session.delegate = context.coordinator
         context.coordinator.arView = arView
         return arView

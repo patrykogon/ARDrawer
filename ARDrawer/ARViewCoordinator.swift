@@ -3,6 +3,7 @@ import RealityKit
 import SceneKit
 import Vision
 import ARKit
+import Combine
 
 enum SelectedModel: String, Equatable, CaseIterable {
     case box = "Box"
@@ -11,17 +12,21 @@ enum SelectedModel: String, Equatable, CaseIterable {
     case ogon = "Ogon"
     case profesor = "Profesor"
     case pawello = "pawello"
+    case agata = "agata"
     
     var localizedName: LocalizedStringKey { LocalizedStringKey(rawValue) }
 }
 
-class ARViewCoordinator: NSObject, ARSessionDelegate {
+final class ARViewCoordinator: NSObject, ARSessionDelegate {
     var arVC: ARViewContainer
     unowned var arView: ARView?
     
     @Binding var size: Float
     @Binding var color: Color
     @Binding var selectedModel: SelectedModel
+    @Binding var isLoading: Bool
+    
+    var cancellables = Set<AnyCancellable>()
     
     lazy var request:VNRequest = {
         var handPoseRequest = VNDetectHumanHandPoseRequest(completionHandler: handDetectionCompletionHandler)
@@ -32,30 +37,31 @@ class ARViewCoordinator: NSObject, ARSessionDelegate {
     init(
         _ control: ARViewContainer,
         size: Binding<Float>,
+        isLoading: Binding<Bool>,
         color: Binding<Color>,
-        selectedModel: Binding<SelectedModel>
+        selectedModel: Binding<SelectedModel> // zwrapować w jakąś strukturkę
     ) {
         self.arVC = control
         _size = size
         _color = color
         _selectedModel = selectedModel
+        _isLoading = isLoading
     }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         let pixelBuffer = frame.capturedImage
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
             let handler = VNImageRequestHandler(cvPixelBuffer:pixelBuffer, orientation: .up, options: [:])
             do {
-                try handler.perform([(self?.request)!])
-                
+                try handler.perform([self.request])
             } catch let error {
                 print(error)
             }
         }
     }
     
-    var recentIndexFingerPoint: CGPoint = .zero
-    
+    private var recentIndexFingerPoint: CGPoint = .zero
     func handDetectionCompletionHandler(request: VNRequest?, error: Error?) {
             guard let observation = request?.results?.first as? VNHumanHandPoseObservation else { return }
             guard let indexFingerTip = try? observation.recognizedPoints(.all)[.indexTip],
